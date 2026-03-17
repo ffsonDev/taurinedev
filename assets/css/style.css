@@ -1568,12 +1568,21 @@ tr:hover {
         font-size: 14px;
     }
 
+    .hero {
+        padding: 6rem 0 3rem;
+    }
+
     .hero-title {
         font-size: 2rem;
+        letter-spacing: -0.5px;
     }
 
     .hero-tagline {
         font-size: 1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.95rem;
     }
 
     /* Buttons */
@@ -1609,6 +1618,10 @@ tr:hover {
         padding: 1.25rem;
     }
 
+    .feature-icon {
+        font-size: 2rem;
+    }
+
     /* Footer */
     .footer-brand-text .brand-name {
         font-size: 1.125rem;
@@ -1616,6 +1629,51 @@ tr:hover {
 
     .footer-bottom p {
         font-size: 0.8rem;
+    }
+
+    /* Changelog */
+    .changelog-version {
+        padding: 1.25rem;
+    }
+
+    .version-header h2 {
+        font-size: 1.25rem;
+    }
+
+    .version-date {
+        font-size: 0.8rem;
+    }
+
+    /* Tabs on mobile */
+    .tab-btn {
+        padding: 0.625rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    html {
+        font-size: 13px;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .container {
+        padding: 0 0.75rem;
+    }
+
+    .feature-card,
+    .library-card,
+    .example-card {
+        padding: 1rem;
+    }
+
+    pre {
+        padding: 0.75rem;
+        font-size: 0.65rem;
     }
 }
 
