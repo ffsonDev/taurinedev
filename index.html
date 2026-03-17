@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taurine — Быстрый скриптовый язык на Rust</title>
+    <meta name="description" content="Taurine — быстрый, встраиваемый скриптовый язык, реализованный на Rust. Простота Lua, производительность Rust.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="Taurine Logo" class="logo-icon">
+                <span>TAURINE</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="docs/index.html">Документация</a></li>
+                <li><a href="packages/index.html">Библиотеки</a></li>
+                <li><a href="examples/index.html">Примеры</a></li>
+                <li><a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">TAURINE</h1>
+                <p class="hero-tagline">Fast. Powerful. Unstoppable.</p>
+                <p class="hero-subtitle">Быстрый, встраиваемый скриптовый язык на Rust</p>
+
+                <div class="hero-buttons">
+                    <a href="#install" class="btn btn-primary">Начать работу</a>
+                    <a href="docs/index.html" class="btn btn-secondary">Документация</a>
+                </div>
+
+                <div class="install-command">
+                    <code>cargo install taurine</code>
+                    <button class="copy-btn" onclick="copyToClipboard(this)" title="Копировать">📋</button>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-value">v1.0</span>
+                        <span class="stat-label">Версия</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">Rust</span>
+                        <span class="stat-label">Ядро</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">MIT</span>
+                        <span class="stat-label">Лицензия</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-code">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="code-title">example.tau</span>
+                </div>
+                <pre><code class="language-taurine"><span class="comment">// Привет, мир!</span>
+<span class="keyword">print</span>(<span class="string">"Привет, Taurine!"</span>)
+
+<span class="comment">// Переменные</span>
+<span class="keyword">let</span> name = <span class="string">"Taurine"</span>
+<span class="keyword">const</span> VERSION = <span class="string">"1.0"</span>
+
+<span class="comment">// Функции</span>
+<span class="keyword">function</span> <span class="function">greet</span>(name, greeting = <span class="string">"Привет"</span>) {
+    <span class="keyword">return</span> <span class="string">f"{greeting}, {name}!"</span>
+}
+
+<span class="keyword">print</span>(greet(name))
+
+<span class="comment">// Multi-return</span>
+<span class="keyword">function</span> <span class="function">divmod</span>(a, b) {
+    <span class="keyword">return</span> a / b, a % b
+}
+
+<span class="keyword">let</span> {q, r} = divmod(<span class="number">10</span>, <span class="number">3</span>)
+<span class="keyword">print</span>(<span class="string">f"Частное: {q}, Остаток: {r}"</span>)</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Почему Taurine?</h2>
+            <p class="section-subtitle">Сочетание простоты и производительности</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Быстрое выполнение</h3>
+                    <p>Оптимизированный интерпретатор с Rc/RefCell для однопоточной производительности</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">�</div>
+                    <h3>Простой синтаксис</h3>
+                    <p>Lua-подобный синтаксис, лёгкий в изучении и использовании</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>Современные функции</h3>
+                    <p>f-строки, multi-return, деструктуризация, nil-safe операторы</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">�</div>
+                    <h3>Богатая библиотека</h3>
+                    <p>JSON, HTTP, криптография, дата/время, regex и многое другое</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">�</div>
+                    <h3>Встраиваемый</h3>
+                    <p>Легко интегрируется в Rust, C/C++, Python и Node.js приложения</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Открытый исходный код</h3>
+                    <p>MIT лицензия. Разрабатывается сообществом</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Examples Section -->
+    <section class="examples-preview">
+        <div class="container">
+            <h2 class="section-title">Для чего использовать?</h2>
+
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="scripting">📜 Скриптинг</button>
+                <button class="tab-btn" data-tab="embedding">🔗 Встраивание</button>
+                <button class="tab-btn" data-tab="automation">🤖 Автоматизация</button>
+                <button class="tab-btn" data-tab="prototyping">⚡ Прототипирование</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="scripting" class="tab-pane active">
+                    <div class="code-window">
+                        <pre><code class="language-taurine"><span class="comment">// Обработка данных</span>
+<span class="keyword">import</span> <span class="string">"std/json.tau"</span> <span class="keyword">as</span> json
+<span class="keyword">import</span> <span class="string">"std/array.tau"</span> <span class="keyword">as</span> array
+
+<span class="keyword">let</span> data = json.parse(<span class="string">'{ "users": [{"name": "John"}, {"name": "Jane"}] }'</span>)
+
+<span class="keyword">for</span> user <span class="keyword">in</span> data.users {
+    <span class="keyword">print</span>(<span class="string">f"Привет, {user.name}!"</span>)
+}
+
+<span class="comment">// Функциональные методы</span>
+<span class="keyword">let</span> names = array.map(data.users, u => u.name)
+<span class="keyword">print</span>(names)</code></pre>
+                    </div>
+                </div>
+
+                <div id="embedding" class="tab-pane">
+                    <div class="code-window">
+                        <pre><code class="language-rust"><span class="comment">// Встраивание в Rust</span>
+<span class="keyword">use</span> taurine::Interpreter;
+
+<span class="keyword">fn</span> <span class="function">main</span>() -> Result&lt;(), String&gt; {
+    <span class="keyword">let</span> <span class="keyword">mut</span> vm = Interpreter::new();
+
+    <span class="comment">// Зарегистрировать Rust функцию</span>
+    vm.register_fn(<span class="string">"rust_add"</span>, |a, b| a + b)?;
+
+    <span class="comment">// Выполнить Taurine код</span>
+    vm.run(<span class="string">r#"
+        let result = rust_add(10, 20)
+        print(f"Результат: {result}")
+    "#</span>)?;
+
+    <span class="prelude">Ok</span>(())
+}</code></pre>
+                    </div>
+                </div>
+
+                <div id="automation" class="tab-pane">
+                    <div class="code-window">
+                        <pre><code class="language-taurine"><span class="comment">// Автоматический бэкап</span>
+<span class="keyword">import</span> <span class="string">"std/io.tau"</span> <span class="keyword">as</span> io
+<span class="keyword">import</span> <span class="string">"std/date.tau"</span> <span class="keyword">as</span> date
+
+<span class="keyword">let</span> backup_name = <span class="string">"backup_"</span> + date.format(date.now(), <span class="string">"%Y%m%d_%H%M%S"</span>) + <span class="string">".zip"</span>
+
+io.copy(<span class="string">"data/"</span>, <span class="string">"backups/"</span> + backup_name)
+<span class="keyword">print</span>(<span class="string">f"Бэкап создан: {backup_name}"</span>)</code></pre>
+                    </div>
+                </div>
+
+                <div id="prototyping" class="tab-pane">
+                    <div class="code-window">
+                        <pre><code class="language-taurine"><span class="comment">// Быстрый прототип алгоритма</span>
+<span class="keyword">function</span> <span class="function">quicksort</span>(arr) {
+    <span class="keyword">if</span> #arr &lt;= <span class="number">1</span> { <span class="keyword">return</span> arr }
+
+    <span class="keyword">let</span> pivot = arr[#arr / <span class="number">2</span>]
+    <span class="keyword">let</span> left = []
+    <span class="keyword">let</span> right = []
+
+    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..#arr {
+        <span class="keyword">if</span> i != #arr / <span class="number">2</span> {
+            <span class="keyword">if</span> arr[i] &lt; pivot {
+                array.push(left, arr[i])
+            } <span class="keyword">else</span> {
+                array.push(right, arr[i])
+            }
+        }
+    }
+
+    <span class="keyword">return</span> quicksort(left) + [pivot] + quicksort(right)
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="install" class="installation">
+        <div class="container">
+            <h2 class="section-title">Установка</h2>
+
+            <div class="install-steps">
+                <div class="install-step">
+                    <div class="step-number">1</div>
+                    <h3>Из исходников</h3>
+                    <div class="code-block">
+                        <pre><code>git clone https://github.com/ffsonDev/taurine.git
+cd taurine
+cargo build --release</code></pre>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-number">2</div>
+                    <h3>Проверка</h3>
+                    <div class="code-block">
+                        <pre><code>taurine --version
+# 🐂 Taurine v1.0.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="install-step">
+                    <div class="step-number">3</div>
+                    <h3>Запуск</h3>
+                    <div class="code-block">
+                        <pre><code>taurine script.tau      # Запуск файла
+taurine --repl           # Интерактивный режим
+taurine --optimize script.tau  # С оптимизацией</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="install-note">
+                <p>💡 <strong>Совет:</strong> Добавьте <code>target/release</code> в PATH для удобного доступа к команде <code>taurine</code></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section class="community">
+        <div class="container">
+            <h2 class="section-title">Присоединяйся к сообществу</h2>
+            <p class="section-subtitle">Будь частью развития Taurine</p>
+
+            <div class="community-links">
+                <a href="https://github.com/ffsonDev/taurine" class="community-card" target="_blank">
+                    <div class="community-icon">🐙</div>
+                    <h3>GitHub</h3>
+                    <p>Исходный код, issues, PR</p>
+                </a>
+
+                <a href="https://github.com/ffsonDev/taurine/discussions" class="community-card" target="_blank">
+                    <div class="community-icon">💬</div>
+                    <h3>Discussions</h3>
+                    <p>Обсуждения и помощь</p>
+                </a>
+
+                <a href="https://github.com/ffsonDev/taurine/releases" class="community-card" target="_blank">
+                    <div class="community-icon">�</div>
+                    <h3>Releases</h3>
+                    <p>Последние версии</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.svg" alt="Taurine Logo" class="logo-icon" style="width: 40px; height: 40px;">
+                    <div class="footer-brand-text">
+                        <span class="brand-name">TAURINE</span>
+                        <p>Быстрый. Мощный. Неудержимый.</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Ресурсы</h4>
+                    <a href="docs/index.html">Документация</a>
+                    <a href="packages/index.html">Библиотеки</a>
+                    <a href="examples/index.html">Примеры</a>
+                    <a href="#install">Установка</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a>
+                    <a href="https://github.com/ffsonDev/taurine/discussions" target="_blank">Discussions</a>
+                    <a href="https://github.com/ffsonDev/taurine/releases" target="_blank">Releases</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Разработка</h4>
+                    <a href="https://github.com/ffsonDev/taurine/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/ffsonDev/taurine/pulls" target="_blank">Pull Requests</a>
+                    <a href="https://github.com/ffsonDev/taurine/blob/main/docs/CONTRIBUTING.md" target="_blank">Contributing</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Разработан <strong>Taurine Creations</strong> • <strong>ffsonDev</strong></p>
+                <p>MIT License © 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

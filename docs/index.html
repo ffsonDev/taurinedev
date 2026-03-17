@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация Taurine — Руководство по языку</title>
+    <meta name="description" content="Полное руководство по языку программирования Taurine: синтаксис, типы данных, функции, модули">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon">
+                <span>TAURINE</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">Главная</a></li>
+                <li><a href="../docs/index.html">Документация</a></li>
+                <li><a href="../packages/index.html">Библиотеки</a></li>
+                <li><a href="../examples/index.html">Примеры</a></li>
+                <li><a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Введение</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#введение">О языке</a></li>
+                    <li><a href="#начало-работы">Начало работы</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Основы</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#базовый-синтаксис">Базовый синтаксис</a></li>
+                    <li><a href="#типы-данных">Типы данных</a></li>
+                    <li><a href="#операторы">Операторы</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Управление потоком</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#управляющие-конструкции">Управляющие конструкции</a></li>
+                    <li><a href="#функции">Функции</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Структуры данных</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#таблицы-и-массивы">Таблицы и массивы</a></li>
+                    <li><a href="#обработка-ошибок">Обработка ошибок</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Модульность</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#модули">Модули</a></li>
+                    <li><a href="#стандартная-библиотека">Стандартная библиотека</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Интеграция</h4>
+                <ul class="sidebar-links">
+                    <li><a href="../packages/embedding.html">Встраивание</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Продвинутые темы</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#f-строки">F-строки</a></li>
+                    <li><a href="#multi-return">Multi-return</a></li>
+                    <li><a href="#nil-safe-операторы">Nil-safe операторы</a></li>
+                    <li><a href="#деструктуризация">Деструктуризация</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="docs-content">
+            <div class="breadcrumb">
+                <a href="../index.html">Главная</a>
+                <span class="separator">/</span>
+                <span>Документация</span>
+            </div>
+
+            <h1>Руководство по языку Taurine</h1>
+
+            <section id="введение">
+                <p><strong>Taurine</strong> — быстрый, встраиваемый скриптовый язык, реализованный на Rust. Он сочетает простоту Lua с современными функциями языка и производительностью компилируемых языков.</p>
+
+                <h3>Цели дизайна</h3>
+                <ul>
+                    <li><strong>Простой</strong> — Лёгкий в изучении и использовании</li>
+                    <li><strong>Быстрый</strong> — Оптимизирован для однопоточной производительности</li>
+                    <li><strong>Встраиваемый</strong> — Легко интегрируется в Rust приложения</li>
+                    <li><strong>Современный</strong> — f-строки, деструктуризация, nil-safe операторы</li>
+                </ul>
+            </section>
+
+            <section id="начало-работы">
+                <h2>Начало работы</h2>
+
+                <h3>Установка</h3>
+                <pre><code class="language-bash"># Из исходников
+git clone https://github.com/ffsonDev/taurine.git
+cd taurine
+cargo build --release
+
+# Или через cargo-binstall
+cargo install cargo-binstall
+cargo binstall taurine</code></pre>
+
+                <h3>Запуск скриптов</h3>
+                <pre><code class="language-bash"># Запуск скрипта
+taurine script.tau
+
+# Запуск REPL (интерактивный режим)
+taurine --repl
+
+# С оптимизациями
+taurine --optimize script.tau
+
+# Форматирование кода
+taurine --format script.tau</code></pre>
+
+                <h3>Hello World</h3>
+                <pre><code class="language-taurine">print("Привет, Taurine!")
+print(f"2 + 2 = {2 + 2}")</code></pre>
+            </section>
+
+            <section id="базовый-синтаксис">
+                <h2>Базовый синтаксис</h2>
+
+                <h3>Комментарии</h3>
+                <pre><code class="language-taurine">// Однострочный комментарий
+
+/* Многострочные комментарии пока не поддерживаются */</code></pre>
+
+                <h3>Переменные</h3>
+                <pre><code class="language-taurine">// Изменяемая переменная
+let x = 10
+x = 100
+
+// Константа (нельзя изменить)
+const PI = 3.14
+// PI = 3  // Ошибка!
+
+// Legacy синтаксис (всё ещё работает)
+loc y = 20</code></pre>
+
+                <h3>Идентификаторы</h3>
+                <ul>
+                    <li>Начинаются с буквы или подчёркивания</li>
+                    <li>Могут содержать буквы, цифры, подчёркивания</li>
+                    <li>Чувствительны к регистру</li>
+                </ul>
+                <pre><code class="language-taurine">let name = "тест"
+let _private = "скрытое"
+let camelCase = true
+let snake_case = true</code></pre>
+            </section>
+
+            <section id="типы-данных">
+                <h2>Типы данных</h2>
+
+                <h3>Числа</h3>
+                <p>64-битные числа с плавающей точкой:</p>
+                <pre><code class="language-taurine">let int = 42
+let float = 3.14
+let negative = -10
+let scientific = 1e10</code></pre>
+
+                <h3>Строки</h3>
+                <p>UTF-8 строки с escape-последовательностями:</p>
+                <pre><code class="language-taurine">let str = "Привет, Мир!"
+let multiline = "Строка1\nСтрока2"
+let tabbed = "Кол1\tКол2"
+let quoted = "Он сказал \"Привет\""</code></pre>
+
+                <h3>Булевы значения</h3>
+                <pre><code class="language-taurine">let truthy = true
+let falsy = false</code></pre>
+
+                <h3>Nil</h3>
+                <p>Представляет отсутствие значения:</p>
+                <pre><code class="language-taurine">let empty = nil</code></pre>
+
+                <h3>Массивы</h3>
+                <p>Упорядоченные списки значений:</p>
+                <pre><code class="language-taurine">let numbers = [1, 2, 3, 4, 5]
+let mixed = [1, "два", true, nil]
+let nested = [[1, 2], [3, 4]]</code></pre>
+
+                <h3>Таблицы</h3>
+                <p>Ассоциативные массивы (как объекты/словари):</p>
+                <pre><code class="language-taurine">let person = { name: "Иван", age: 30 }
+let empty = {}
+let nested = { outer: { inner: "значение" } }</code></pre>
+
+                <h3>Диапазоны</h3>
+                <p>Используются в циклах for-in:</p>
+                <pre><code class="language-taurine">// 1 до 9 (исключая 10)
+for i in 1..10 { print(i) }</code></pre>
+            </section>
+
+            <section id="операторы">
+                <h2>Операторы</h2>
+
+                <h3>Арифметические</h3>
+                <pre><code class="language-taurine">let sum = 1 + 2       // 3
+let diff = 5 - 3      // 2
+let prod = 4 * 5      // 20
+let quot = 10 / 2     // 5
+let neg = -5          // -5</code></pre>
+
+                <h3>Сравнения</h3>
+                <pre><code class="language-taurine">let eq = (1 == 1)     // true
+let ne = (1 != 2)     // true
+let lt = (1 < 2)      // true
+let gt = (2 > 1)      // true
+let le = (1 <= 1)     // true
+let ge = (2 >= 2)     // true</code></pre>
+
+                <h3>Логические</h3>
+                <pre><code class="language-taurine">let and = (true and false)  // false
+let or = (true or false)    // true
+let not = not true          // false</code></pre>
+
+                <h3>Конкатенация строк</h3>
+                <pre><code class="language-taurine">let str = "Привет" + " " + "Мир"  // "Привет Мир"
+let mixed = "Значение: " + 42     // "Значение: 42"</code></pre>
+
+                <h3>Длина</h3>
+                <pre><code class="language-taurine">let len = #[1, 2, 3]    // 3
+let slen = #"привет"    // 6
+let tlen = #{a: 1, b: 2} // 2</code></pre>
+            </section>
+
+            <section id="управляющие-конструкции">
+                <h2>Управляющие конструкции</h2>
+
+                <h3>If/Else</h3>
+                <pre><code class="language-taurine">if x > 10 {
+    print("большое")
+} else if x > 5 {
+    print("среднее")
+} else {
+    print("маленькое")
+}</code></pre>
+
+                <h3>While цикл</h3>
+                <pre><code class="language-taurine">let i = 0
+while i < 10 {
+    print(i)
+    i = i + 1
+}</code></pre>
+
+                <h3>For-In цикл</h3>
+                <pre><code class="language-taurine">// Диапазон
+for i in 1..10 {
+    print(i)
+}
+
+// Массив
+for item in [1, 2, 3] {
+    print(item)
+}
+
+// Строка (посимвольно)
+for ch in "привет" {
+    print(ch)
+}</code></pre>
+
+                <h3>Break/Continue</h3>
+                <pre><code class="language-taurine">for i in 1..10 {
+    if i == 5 {
+        break  // Выход из цикла
+    }
+    if i == 3 {
+        continue  // Переход к следующей итерации
+    }
+    print(i)
+}</code></pre>
+            </section>
+
+            <section id="функции">
+                <h2>Функции</h2>
+
+                <h3>Определение</h3>
+                <pre><code class="language-taurine">function add(a, b) {
+    return a + b
+}</code></pre>
+
+                <h3>Параметры по умолчанию</h3>
+                <pre><code class="language-taurine">function greet(name, greeting = "Привет") {
+    print(f"{greeting}, {name}!")
+}
+
+greet("Мир")           // "Привет, Мир!"
+greet("Мир", "Hi")     // "Hi, Мир!"</code></pre>
+
+                <h3>Multi-Return</h3>
+                <p>Функции могут возвращать несколько значений:</p>
+                <pre><code class="language-taurine">function divmod(a, b) {
+    return a / b, a % b
+}
+
+// Захват всех возвращаемых значений
+let result = divmod(10, 3)
+
+// Деструктуризация
+let {q, r} = divmod(10, 3)
+print(f"Частное: {q}, Остаток: {r}")</code></pre>
+
+                <h3>Функциональные литералы</h3>
+                <pre><code class="language-taurine">let add = function(a, b) {
+    return a + b
+}
+
+// В таблицах
+let obj = {
+    name: "тест",
+    greet: function(self) {
+        print(f"Привет, {self.name}!")
+    }
+}</code></pre>
+
+                <h3>Лямбда-функции</h3>
+                <pre><code class="language-taurine">let double = x => x * 2
+let sum = (a, b) => a + b
+
+// Использование с массивами
+import "std/array.tau" as array
+let arr = [1, 2, 3]
+let doubled = array.map(arr, x => x * 2)</code></pre>
+            </section>
+
+            <section id="таблицы-и-массивы">
+                <h2>Таблицы и массивы</h2>
+
+                <h3>Операции с массивами</h3>
+                <pre><code class="language-taurine">import "std/array.tau" as array
+
+let arr = [1, 2, 3]
+
+// Длина
+let len = #arr
+
+// Доступ
+let first = arr[0]
+arr[0] = 100
+
+// Операции
+array.push(arr, 4)
+let last = array.pop(arr)
+let doubled = array.map(arr, x => x * 2)
+let evens = array.filter(arr, x => x % 2 == 0)</code></pre>
+
+                <h3>Операции с таблицами</h3>
+                <pre><code class="language-taurine">let obj = { name: "тест", value: 42 }
+
+// Доступ
+print(obj.name)
+print(obj["name"])
+
+// Изменение
+obj.name = "новый"
+obj.newField = "добавлено"
+
+// Nil-safe доступ
+print(obj?.missing)  // nil (без ошибки)</code></pre>
+
+                <h3>Методы таблиц</h3>
+                <pre><code class="language-taurine">let counter = { count: 0 }
+
+function increment(self, amount) {
+    self.count = self.count + amount
+}
+
+increment(counter, 5)
+print(counter.count)  // 5</code></pre>
+            </section>
+
+            <section id="обработка-ошибок">
+                <h2>Обработка ошибок</h2>
+
+                <h3>Try/Catch</h3>
+                <pre><code class="language-taurine">try {
+    risky_operation()
+} catch (err) {
+    print(f"Ошибка: {err}")
+}</code></pre>
+
+                <h3>Throw</h3>
+                <pre><code class="language-taurine">function divide(a, b) {
+    if b == 0 {
+        throw "Деление на ноль"
+    }
+    return a / b
+}</code></pre>
+
+                <h3>Assertions</h3>
+                <pre><code class="language-taurine">import "std/test.tau" as test
+
+assert(x > 0, "x должно быть положительным")
+assert_eq(a, b, "a и b должны быть равны")</code></pre>
+            </section>
+
+            <section id="модули">
+                <h2>Модули</h2>
+
+                <h3>Импорт</h3>
+                <pre><code class="language-taurine">// Импорт с псевдонимом
+import "std/json.tau" as json
+
+// Импорт без псевдонима (используется имя файла)
+import "std/crypto.tau" as crypto</code></pre>
+
+                <h3>Стандартная библиотека</h3>
+                <ul>
+                    <li><code>std/json.tau</code> — Парсинг и сериализация JSON</li>
+                    <li><code>std/http.tau</code> — HTTP клиент (GET, POST, PUT, DELETE)</li>
+                    <li><code>std/crypto.tau</code> — Криптографические функции</li>
+                    <li><code>std/date.tau</code> — Дата/время</li>
+                    <li><code>std/regex.tau</code> — Регулярные выражения</li>
+                    <li><code>std/array.tau</code> — Утилиты для массивов</li>
+                    <li><code>std/string.tau</code> — Строковые утилиты</li>
+                    <li><code>std/io.tau</code> — Файловый ввод/вывод</li>
+                    <li><code>std/math.tau</code> — Математические функции</li>
+                    <li><code>std/os.tau</code> — Функции ОС</li>
+                </ul>
+            </section>
+
+            <section id="f-строки">
+                <h2>F-строки</h2>
+                <p>Интерполяция строк с помощью f-строк:</p>
+                <pre><code class="language-taurine">let name = "Taurine"
+let version = "1.0"
+
+print(f"Привет от {name} v{version}!")
+print(f"2 + 2 = {2 + 2}")
+print(f"Результат: {10 * 5}")</code></pre>
+            </section>
+
+            <section id="multi-return">
+                <h2>Multi-Return</h2>
+                <p>Функции могут возвращать несколько значений, которые можно деструктуризировать:</p>
+                <pre><code class="language-taurine">function getPerson() {
+    return "Иван", 30, "Москва"
+}
+
+// Деструктуризация
+let {name, age, city} = getPerson()
+print(f"{name}, {age} лет, из {city}")</code></pre>
+            </section>
+
+            <section id="nil-safe-операторы">
+                <h2>Nil-safe операторы</h2>
+                <p>Безопасный доступ к свойствам без риска ошибки:</p>
+                <pre><code class="language-taurine">let obj = { name: "тест" }
+
+// Safe property access
+print(obj?.name)     // "тест"
+print(obj?.missing)  // nil (без ошибки)
+
+let nilObj = nil
+print(nilObj?.prop)  // nil</code></pre>
+            </section>
+
+            <section id="деструктуризация">
+                <h2>Деструктуризация</h2>
+                <p>Извлечение значений из массивов и таблиц:</p>
+                <pre><code class="language-taurine">// Деструктуризация массива
+let arr = [1, 2, 3]
+let {first, second} = arr
+
+// Деструктуризация таблицы
+let person = { name: "Иван", age: 30, city: "Москва" }
+let {name, age} = person
+print(f"{name}, {age}")  // "Иван, 30"
+
+// С переименованием
+let {name: userName, age: userAge} = person
+print(f"{userName}, {userAge}")</code></pre>
+            </section>
+
+            <section id="стандартная-библиотека">
+                <h2>Стандартная библиотека</h2>
+                <p>Полную документацию по стандартной библиотеке смотрите в разделе <a href="/packages/">Библиотеки</a>.</p>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon" style="width: 40px; height: 40px;">
+                    <div class="footer-brand-text">
+                        <span class="brand-name">TAURINE</span>
+                        <p>Быстрый. Мощный. Неудержимый.</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Ресурсы</h4>
+                    <a href="../index.html">Главная</a>
+                    <a href="../packages/index.html">Библиотеки</a>
+                    <a href="../examples/index.html">Примеры</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a>
+                    <a href="https://github.com/ffsonDev/taurine/discussions" target="_blank">Discussions</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Разработка</h4>
+                    <a href="https://github.com/ffsonDev/taurine/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/ffsonDev/taurine/pulls" target="_blank">Pull Requests</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Разработан <strong>Taurine Creations</strong> • <strong>ffsonDev</strong></p>
+                <p>MIT License © 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

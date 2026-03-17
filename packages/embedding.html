@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Встраивание Taurine — Руководство</title>
+    <meta name="description" content="Руководство по встраиванию Taurine в Rust, C/C++, Python и Node.js приложения">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon">
+                <span>TAURINE</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">Главная</a></li>
+                <li><a href="../docs/index.html">Документация</a></li>
+                <li><a href="../packages/index.html">Библиотеки</a></li>
+                <li><a href="../examples/index.html">Примеры</a></li>
+                <li><a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Встраивание</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#введение">Введение</a></li>
+                    <li><a href="#rust-api">Rust API</a></li>
+                    <li><a href="#c-api">C API</a></li>
+                    <li><a href="#cpp-api">C++ API</a></li>
+                    <li><a href="#python-bindings">Python</a></li>
+                    <li><a href="#nodejs-bindings">Node.js</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Дополнительно</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#производительность">Производительность</a></li>
+                    <li><a href="#безопасность">Безопасность</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="docs-content">
+            <div class="breadcrumb">
+                <a href="/">Главная</a>
+                <span class="separator">/</span>
+                <span>Встраивание</span>
+            </div>
+
+            <h1>Руководство по встраиванию</h1>
+            <p>Taurine может быть встроен в другие приложения, позволяя использовать его как скриптовый язык в ваших программах.</p>
+
+            <section id="введение">
+                <h2>Введение</h2>
+                <p>Taurine разработан для лёгкой интеграции с другими языками программирования. Вы можете:</p>
+                <ul>
+                    <li>Выполнять код Taurine из вашего приложения</li>
+                    <li>Вызывать функции Taurine из хост-языка</li>
+                    <li>Регистрировать функции хост-языка для использования в Taurine</li>
+                    <li>Получать и устанавливать переменные Taurine</li>
+                </ul>
+
+                <div class="api-function">
+                    <h4>Базовая архитектура</h4>
+                    <pre><code>┌─────────────────┐
+│  Host App       │
+│  (Rust/C/C++)   │
+│                 │
+│  ┌───────────┐  │
+│  │ Taurine   │  │
+│  │ VM        │  │
+│  │           │  │
+│  │ ┌───────┐ │  │
+│  │ │Script │ │  │
+│  │ └───────┘ │  │
+│  └───────────┘  │
+└─────────────────┘</code></pre>
+                </div>
+            </section>
+
+            <section id="rust-api">
+                <h2>Rust API</h2>
+                <p>Наиболее полный и производительный способ встраивания.</p>
+
+                <h3>Установка</h3>
+                <p>Добавьте Taurine в ваш <code>Cargo.toml</code>:</p>
+                <pre><code class="language-toml">[dependencies]
+taurine = "1.0"</code></pre>
+
+                <h3>Базовое использование</h3>
+                <div class="api-function">
+                    <h4>Запуск кода Taurine</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, Value};
+
+fn main() -> Result<(), String> {
+    // Создать интерпретатор
+    let mut interp = Interpreter::new();
+
+    // Запустить код на Taurine
+    interp.run(r#"
+        let x = 10
+        let y = 20
+        print(f"x + y = {x + y}")
+    "#)?;
+
+    Ok(())
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>Вызов функций Taurine из Rust</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, Value};
+
+fn main() -> Result<(), String> {
+    let mut interp = Interpreter::new();
+
+    // Определить функцию на Taurine
+    interp.run(r#"
+        function add(a, b) {
+            return a + b
+        }
+    "#)?;
+
+    // Вызвать функцию из Rust
+    let result = interp.call("add", &[
+        Value::Number(5.0), 
+        Value::Number(3.0)
+    ])?;
+
+    if let Value::Number(n) = result {
+        println!("Результат: {}", n); // 8.0
+    }
+
+    Ok(())
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>Получение значений из Taurine</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, Value};
+
+fn main() -> Result<(), String> {
+    let mut interp = Interpreter::new();
+
+    // Установить переменную в Taurine
+    interp.run(r#"
+        let message = "Привет из Rust!"
+        let numbers = [1, 2, 3, 4, 5]
+    "#)?;
+
+    // Получить переменную
+    let message = interp.get("message")?;
+    let numbers = interp.get("numbers")?;
+
+    println!("Сообщение: {:?}", message);
+    println!("Числа: {:?}", numbers);
+
+    Ok(())
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>Регистрация Rust функций</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, Value};
+
+fn main() -> Result<(), String> {
+    let mut interp = Interpreter::new();
+
+    // Зарегистрировать Rust функцию
+    interp.register_fn("rust_add", |args: &[Value]| {
+        if args.len() < 2 {
+            return Err("Ожидается 2 аргумента".to_string());
+        }
+
+        if let (Value::Number(a), Value::Number(b)) = (&args[0], &args[1]) {
+            Ok(Value::Number(a + b))
+        } else {
+            Err("Ожидаются числа".to_string())
+        }
+    });
+
+    // Использовать функцию в Taurine
+    interp.run(r#"
+        let result = rust_add(10, 20)
+        print(f"Результат Rust функции: {result}")
+    "#)?;
+
+    Ok(())
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>Обработка ошибок</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, Value};
+
+fn main() {
+    let mut interp = Interpreter::new();
+
+    match interp.run(r#"
+        let x = "hello"
+        let y = x + 10  // Это вызовет ошибку
+    "#) {
+        Ok(_) => println!("Успех!"),
+        Err(e) => eprintln!("Ошибка: {}", e),
+    }
+}</code></pre>
+                </div>
+
+                <h3>Продвинутые возможности Rust API</h3>
+                <div class="api-function">
+                    <h4>Компиляция и повторное выполнение</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, CompiledCode};
+
+fn main() -> Result<(), String> {
+    let mut interp = Interpreter::new();
+
+    // Компилировать код один раз
+    let compiled: CompiledCode = interp.compile(r#"
+        function compute(x, y) {
+            return x * y + 10
+        }
+    "#)?;
+
+    // Выполнять многократно
+    for i in 0..5 {
+        interp.run_compiled(&compiled)?;
+        let result = interp.call("compute", &[
+            Value::Number(i as f64),
+            Value::Number(2.0)
+        ])?;
+        println!("Iteration {}: {:?}", i, result);
+    }
+
+    Ok(())
+}</code></pre>
+                </div>
+            </section>
+
+            <section id="c-api">
+                <h2>C API</h2>
+                <p>Taurine предоставляет C API для встраивания в C/C++ приложения.</p>
+
+                <h3>Подключение</h3>
+                <pre><code class="language-c">#include &lt;stdio.h&gt;
+#include "taurine.h"</code></pre>
+
+                <div class="api-function">
+                    <h4>Пример на C</h4>
+                    <pre><code class="language-c">#include &lt;stdio.h&gt;
+#include "taurine.h"
+
+int main() {
+    // Создать VM
+    TaurineVM* vm = taurine_new();
+
+    // Запустить код на Taurine
+    const char* code =
+        "let x = 10\n"
+        "let y = 20\n"
+        "print(f\"x + y = {x + y}\")\n";
+
+    if (taurine_run(vm, code) != 0) {
+        fprintf(stderr, "Ошибка: %s\n", taurine_get_error(vm));
+        taurine_free(vm);
+        return 1;
+    }
+
+    // Получить значение
+    TaurineValue* val = taurine_get(vm, "x");
+    if (taurine_is_number(val)) {
+        printf("x = %f\n", taurine_as_number(val));
+    }
+
+    // Очистить
+    taurine_value_free(val);
+    taurine_free(vm);
+
+    return 0;
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>C API функции</h4>
+                    <pre><code class="language-c">// Управление VM
+TaurineVM* taurine_new();
+void taurine_free(TaurineVM* vm);
+int taurine_run(TaurineVM* vm, const char* code);
+const char* taurine_get_error(TaurineVM* vm);
+
+// Работа со значениями
+TaurineValue* taurine_get(TaurineVM* vm, const char* name);
+void taurine_set(TaurineVM* vm, const char* name, TaurineValue* val);
+void taurine_value_free(TaurineValue* val);
+
+// Проверка типов
+int taurine_is_number(TaurineValue* val);
+int taurine_is_string(TaurineValue* val);
+int taurine_is_nil(TaurineValue* val);
+
+// Преобразование
+double taurine_as_number(TaurineValue* val);
+const char* taurine_as_string(TaurineValue* val);
+
+// Создание значений
+TaurineValue* taurine_value_new_number(double n);
+TaurineValue* taurine_value_new_string(const char* s);
+TaurineValue* taurine_value_new_nil();</code></pre>
+                </div>
+
+                <h3>Сборка с C API</h3>
+                <pre><code class="language-bash"># Компиляция C кода
+gcc -o myapp main.c -ltaurine
+
+# Запуск
+./myapp</code></pre>
+            </section>
+
+            <section id="cpp-api">
+                <h2>C++ API</h2>
+                <p>Объектно-ориентированный wrapper для C API.</p>
+
+                <div class="api-function">
+                    <h4>Пример на C++</h4>
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include "taurine.h"
+
+class Taurine {
+private:
+    TaurineVM* vm;
+
+public:
+    Taurine() : vm(taurine_new()) {}
+    ~Taurine() { taurine_free(vm); }
+
+    bool run(const std::string& code) {
+        return taurine_run(vm, code.c_str()) == 0;
+    }
+
+    std::string getError() const {
+        return taurine_get_error(vm);
+    }
+
+    double getNumber(const std::string& name) {
+        TaurineValue* val = taurine_get(vm, name.c_str());
+        double result = taurine_as_number(val);
+        taurine_value_free(val);
+        return result;
+    }
+
+    std::string getString(const std::string& name) {
+        TaurineValue* val = taurine_get(vm, name.c_str());
+        std::string result = taurine_as_string(val);
+        taurine_value_free(val);
+        return result;
+    }
+};
+
+int main() {
+    Taurine taurine;
+
+    if (!taurine.run(R"(
+        let pi = 3.14159
+        let radius = 5
+        let area = pi * radius * radius
+        let message = "Площадь круга"
+    )")) {
+        std::cerr << "Ошибка: " << taurine.getError() << std::endl;
+        return 1;
+    }
+
+    double area = taurine.getNumber("area");
+    std::string msg = taurine.getString("message");
+    
+    std::cout << msg << ": " << area << std::endl;
+
+    return 0;
+}</code></pre>
+                </div>
+
+                <h3>Сборка C++ проекта</h3>
+                <pre><code class="language-bash"># Компиляция C++ кода
+g++ -o myapp main.cpp -ltaurine -std=c++11
+
+# Запуск
+./myapp</code></pre>
+            </section>
+
+            <section id="python-bindings">
+                <h2>Python Bindings</h2>
+                <p>Использование Taurine из Python приложений.</p>
+
+                <div class="api-function">
+                    <h4>Установка</h4>
+                    <pre><code class="language-bash">pip install taurine</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>Пример использования</h4>
+                    <pre><code class="language-python">import taurine
+
+# Создать интерпретатор
+vm = taurine.Interpreter()
+
+# Выполнить код
+vm.run("""
+    let x = 10
+    let y = 20
+    print(f"x + y = {x + y}")
+""")
+
+# Получить значение
+result = vm.get("x")
+print(f"Значение x: {result}")
+
+# Вызвать функцию
+vm.run("""
+    function multiply(a, b) {
+        return a * b
+    }
+""")
+
+result = vm.call("multiply", [5, 3])
+print(f"5 * 3 = {result}")
+
+# Зарегистрировать Python функцию
+def python_add(a, b):
+    return a + b
+
+vm.register_function("py_add", python_add)
+vm.run("print(py_add(10, 20))")</code></pre>
+                </div>
+            </section>
+
+            <section id="nodejs-bindings">
+                <h2>Node.js Bindings</h2>
+                <p>Использование Taurine из JavaScript/TypeScript приложений.</p>
+
+                <div class="api-function">
+                    <h4>Установка</h4>
+                    <pre><code class="language-bash">npm install taurine</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>Пример использования</h4>
+                    <pre><code class="language-javascript">const taurine = require('taurine');
+
+// Создать интерпретатор
+const vm = new taurine.Interpreter();
+
+// Выполнить код
+vm.run(`
+    let x = 10
+    let y = 20
+    print(f"x + y = {x + y}")
+`);
+
+// Получить значение
+const result = vm.get('x');
+console.log(`Значение x: ${result}`);
+
+// Вызвать функцию
+vm.run(`
+    function multiply(a, b) {
+        return a * b
+    }
+`);
+
+const product = vm.call('multiply', [5, 3]);
+console.log(`5 * 3 = ${product}`);
+
+// Зарегистрировать JS функцию
+function jsAdd(a, b) {
+    return a + b;
+}
+
+vm.registerFunction('js_add', jsAdd);
+vm.run('print(js_add(10, 20))');</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>TypeScript пример</h4>
+                    <pre><code class="language-typescript">import { Interpreter, Value } from 'taurine';
+
+const vm = new Interpreter();
+
+// Типизированный вызов
+vm.run(`
+    function greet(name: string): string {
+        return "Hello, " + name
+    }
+`);
+
+const greeting: string = vm.call('greet', ['World']);
+console.log(greeting);</code></pre>
+                </div>
+            </section>
+
+            <section id="производительность">
+                <h2>Советы по производительности</h2>
+
+                <div class="api-function">
+                    <h4>1. Повторное использование VM</h4>
+                    <pre><code class="language-rust">// ❌ Плохо: создание VM для каждого вызова
+fn process_script(code: &str) {
+    let vm = Interpreter::new();
+    vm.run(code);
+}
+
+// ✅ Хорошо: переиспользование VM
+struct ScriptProcessor {
+    vm: Interpreter,
+}
+
+impl ScriptProcessor {
+    fn new() -> Self {
+        Self {
+            vm: Interpreter::new(),
+        }
+    }
+
+    fn process(&mut self, code: &str) {
+        self.vm.run(code);
+    }
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>2. Кэширование кода</h4>
+                    <pre><code class="language-rust">// Компилируйте код один раз, выполняйте многократно
+let compiled = vm.compile(script_code)?;
+
+for item in items {
+    vm.set("item", item);
+    vm.run_compiled(&compiled)?;
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>3. Минимизация FFI вызовов</h4>
+                    <pre><code class="language-rust">// ❌ Плохо: много вызовов через FFI
+for i in 0..1000 {
+    vm.call("process", &[Value::Number(i as f64)])?;
+}
+
+// ✅ Хорошо: пакетная обработка
+vm.run(r#"
+    for i in 0..1000 {
+        process(i)
+    }
+"#)?;</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>4. Использование нативных функций</h4>
+                    <pre><code class="language-rust">// Регистрируйте критичный код как Rust функции
+vm.register_fn("fast_compute", |a: f64, b: f64| {
+    // Оптимизированная реализация
+    (a * b).sqrt() + a.sin()
+});</code></pre>
+                </div>
+            </section>
+
+            <section id="безопасность">
+                <h2>Рекомендации по безопасности</h2>
+
+                <div class="api-function">
+                    <h4>1. Песочница</h4>
+                    <pre><code class="language-rust">use taurine::{Interpreter, Sandbox};
+
+let mut vm = Interpreter::new();
+
+// Включить песочницу
+let sandbox = Sandbox::new()
+    .disable_io()
+    .disable_network()
+    .disable_filesystem();
+
+vm.set_sandbox(sandbox);</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>2. Ограничение времени выполнения</h4>
+                    <pre><code class="language-rust">use std::time::Duration;
+
+vm.set_timeout(Duration::from_secs(5));
+
+match vm.run(long_running_script) {
+    Ok(_) => println!("Успех!"),
+    Err(e) if e.contains("timeout") => {
+        eprintln!("Превышено время выполнения");
+    }
+    Err(e) => eprintln!("Ошибка: {}", e),
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>3. Ограничение памяти</h4>
+                    <pre><code class="language-rust">vm.set_memory_limit(100 * 1024 * 1024); // 100 MB
+
+match vm.run(memory_intensive_script) {
+    Ok(_) => println!("Успех!"),
+    Err(e) if e.contains("memory") => {
+        eprintln!("Превышен лимит памяти");
+    }
+    Err(e) => eprintln!("Ошибка: {}", e),
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>4. Фильтрация опасных функций</h4>
+                    <pre><code class="language-rust">// Не регистрируйте опасные функции для недоверенного кода
+// - io.remove()
+// - os.exec()
+// - process.spawn()
+
+// Или создайте whitelist разрешённых функций
+let allowed_functions = vec!["print", "math.sin", "string.upper"];
+vm.set_function_whitelist(allowed_functions);</code></pre>
+                </div>
+            </section>
+
+            <section id="дополнительные-примеры">
+                <h2>Дополнительные примеры</h2>
+                <p>Смотрите директорию <code>examples/embedding/</code> в репозитории для полных рабочих примеров:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Файл</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>01_basic_rust.rs</code></td>
+                            <td>Базовое встраивание в Rust</td>
+                        </tr>
+                        <tr>
+                            <td><code>02_calling_functions.rs</code></td>
+                            <td>Вызов функций Taurine из Rust</td>
+                        </tr>
+                        <tr>
+                            <td><code>03_rust_functions.rs</code></td>
+                            <td>Регистрация Rust функций</td>
+                        </tr>
+                        <tr>
+                            <td><code>04_c_api.c</code></td>
+                            <td>Пример на C API</td>
+                        </tr>
+                        <tr>
+                            <td><code>05_cpp_api.cpp</code></td>
+                            <td>C++ wrapper класс</td>
+                        </tr>
+                        <tr>
+                            <td><code>06_python.py</code></td>
+                            <td>Python bindings</td>
+                        </tr>
+                        <tr>
+                            <td><code>07_nodejs.js</code></td>
+                            <td>Node.js bindings</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Запуск примеров</h3>
+                <pre><code class="language-bash"># Rust примеры
+cargo run --example 01_basic_rust
+cargo run --example 02_calling_functions
+cargo run --example 03_rust_functions
+
+# C пример
+gcc examples/embedding/04_c_api.c -ltaurine -o c_example
+./c_example</code></pre>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon" style="width: 40px; height: 40px;">
+                    <div class="footer-brand-text">
+                        <span class="brand-name">TAURINE</span>
+                        <p>Быстрый. Мощный. Неудержимый.</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Ресурсы</h4>
+                    <a href="../index.html">Главная</a>
+                    <a href="../docs/index.html">Документация</a>
+                    <a href="../examples/index.html">Примеры</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a>
+                    <a href="https://github.com/ffsonDev/taurine/discussions" target="_blank">Discussions</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Разработка</h4>
+                    <a href="https://github.com/ffsonDev/taurine/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/ffsonDev/taurine/pulls" target="_blank">Pull Requests</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Разработан <strong>Taurine Creations</strong> • <strong>ffsonDev</strong></p>
+                <p>MIT License © 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

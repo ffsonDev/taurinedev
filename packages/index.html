@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стандартная библиотека Taurine</title>
+    <meta name="description" content="Документация стандартной библиотеки Taurine: JSON, HTTP, криптография, дата/время, массивы и другие модули">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon">
+                <span>TAURINE</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">Главная</a></li>
+                <li><a href="../docs/index.html">Документация</a></li>
+                <li><a href="index.html">Библиотеки</a></li>
+                <li><a href="../examples/index.html">Примеры</a></li>
+                <li><a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Стандартная библиотека</h4>
+                <ul class="sidebar-links">
+                    <li><a href="#json">JSON</a></li>
+                    <li><a href="#http">HTTP</a></li>
+                    <li><a href="#crypto">Crypto</a></li>
+                    <li><a href="#date">Date</a></li>
+                    <li><a href="#regex">Regex</a></li>
+                    <li><a href="#array">Array</a></li>
+                    <li><a href="#string">String</a></li>
+                    <li><a href="#io">IO</a></li>
+                    <li><a href="#math">Math</a></li>
+                    <li><a href="#os">OS</a></li>
+                    <li><a href="#fs">File System</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#table">Table</a></li>
+                    <li><a href="#test">Test</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h4 class="sidebar-title">Интеграция</h4>
+                <ul class="sidebar-links">
+                    <li><a href="embedding.html">Встраивание</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Content -->
+        <main class="docs-content">
+            <div class="breadcrumb">
+                <a href="../index.html">Главная</a>
+                <span class="separator">/</span>
+                <span>Библиотеки</span>
+            </div>
+
+            <h1>Стандартная библиотека</h1>
+            <p>Taurine включает богатую стандартную библиотеку для решения повседневных задач программирования.</p>
+
+            <div class="library-grid">
+                <div class="library-card">
+                    <h3>JSON</h3>
+                    <code>std/json.tau</code>
+                    <p>Парсинг и сериализация JSON</p>
+                    <a href="#json">Подробнее →</a>
+                </div>
+                <div class="library-card">
+                    <h3>HTTP</h3>
+                    <code>std/http.tau</code>
+                    <p>HTTP клиент для веб-запросов</p>
+                    <a href="#http">Подробнее →</a>
+                </div>
+                <div class="library-card">
+                    <h3>Crypto</h3>
+                    <code>std/crypto.tau</code>
+                    <p>Криптографические функции</p>
+                    <a href="#crypto">Подробнее →</a>
+                </div>
+                <div class="library-card">
+                    <h3>Date</h3>
+                    <code>std/date.tau</code>
+                    <p>Работа с датой и временем</p>
+                    <a href="#date">Подробнее →</a>
+                </div>
+                <div class="library-card">
+                    <h3>Regex</h3>
+                    <code>std/regex.tau</code>
+                    <p>Регулярные выражения</p>
+                    <a href="#regex">Подробнее →</a>
+                </div>
+                <div class="library-card">
+                    <h3>Array</h3>
+                    <code>std/array.tau</code>
+                    <p>Утилиты для работы с массивами</p>
+                    <a href="#array">Подробнее →</a>
+                </div>
+            </div>
+
+            <!-- JSON Module -->
+            <section id="json" class="api-section">
+                <h2>JSON</h2>
+                <p>Модуль для работы с JSON: парсинг строк и сериализация объектов.</p>
+
+                <div class="api-function">
+                    <h4>json.parse(str)</h4>
+                    <p>Парсит JSON строку и возвращает объект Taurine.</p>
+                    <pre><code class="language-taurine">import "std/json.tau" as json
+
+let str = '{ "name": "Taurine", "version": "1.0" }'
+let obj = json.parse(str)
+print(obj.name)    // "Taurine"
+print(obj.version) // "1.0"</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>json.stringify(obj)</h4>
+                    <p>Сериализует объект Taurine в JSON строку.</p>
+                    <pre><code class="language-taurine">import "std/json.tau" as json
+
+let data = { name: "test", value: 42 }
+let jsonStr = json.stringify(data)
+print(jsonStr)  // {"name":"test","value":42}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>json.encode(obj)</h4>
+                    <p>Алиас для <code>json.stringify()</code>.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>json.decode(str)</h4>
+                    <p>Алиас для <code>json.parse()</code>.</p>
+                </div>
+            </section>
+
+            <!-- HTTP Module -->
+            <section id="http" class="api-section">
+                <h2>HTTP</h2>
+                <p>HTTP клиент для выполнения веб-запросов.</p>
+
+                <div class="api-function">
+                    <h4>http.get(url, headers?)</h4>
+                    <p>Выполняет GET запрос к указанному URL.</p>
+                    <pre><code class="language-taurine">import "std/http.tau" as http
+
+let response = http.get("https://api.example.com/data")
+print(response.status)  // 200
+print(response.body)    // тело ответа</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>http.post(url, data, headers?)</h4>
+                    <p>Выполняет POST запрос с данными.</p>
+                    <pre><code class="language-taurine">import "std/http.tau" as http
+
+let data = { name: "test", value: 42 }
+let response = http.post("https://api.example.com/create", data)
+print(response.status)</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>http.put(url, data, headers?)</h4>
+                    <p>Выполняет PUT запрос для обновления ресурса.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>http.delete(url, headers?)</h4>
+                    <p>Выполняет DELETE запрос для удаления ресурса.</p>
+                </div>
+            </section>
+
+            <!-- Crypto Module -->
+            <section id="crypto" class="api-section">
+                <h2>Crypto</h2>
+                <p>Криптографические функции: хеширование, кодирование, генерация UUID.</p>
+
+                <div class="api-function">
+                    <h4>crypto.md5(data)</h4>
+                    <p>Вычисляет MD5 хеш строки.</p>
+                    <pre><code class="language-taurine">import "std/crypto.tau" as crypto
+
+let hash = crypto.md5("hello")
+print(hash)  // 5d41402abc4b2a76b9719d911017c592</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>crypto.sha256(data)</h4>
+                    <p>Вычисляет SHA256 хеш строки.</p>
+                    <pre><code class="language-taurine">let hash = crypto.sha256("hello")
+print(hash)  // 2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c...</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>crypto.base64Encode(data)</h4>
+                    <p>Кодирует строку в Base64.</p>
+                    <pre><code class="language-taurine">let encoded = crypto.base64Encode("hello")
+print(encoded)  // aGVsbG8=</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>crypto.base64Decode(data)</h4>
+                    <p>Декодирует Base64 строку.</p>
+                    <pre><code class="language-taurine">let decoded = crypto.base64Decode("aGVsbG8=")
+print(decoded)  // hello</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>crypto.uuid()</h4>
+                    <p>Генерирует случайный UUID v4.</p>
+                    <pre><code class="language-taurine">let id = crypto.uuid()
+print(id)  // 550e8400-e29b-41d4-a716-446655440000</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>crypto.randomBytes(length)</h4>
+                    <p>Генерирует случайные байты указанной длины.</p>
+                </div>
+            </section>
+
+            <!-- Date Module -->
+            <section id="date" class="api-section">
+                <h2>Date</h2>
+                <p>Работа с датой и временем.</p>
+
+                <div class="api-function">
+                    <h4>date.now()</h4>
+                    <p>Возвращает текущую метку времени (timestamp).</p>
+                    <pre><code class="language-taurine">import "std/date.tau" as date
+
+let timestamp = date.now()
+print(timestamp)  // 1710000000000</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>date.format(timestamp, format)</h4>
+                    <p>Форматирует timestamp в строку по заданному формату.</p>
+                    <pre><code class="language-taurine">let now = date.now()
+let formatted = date.format(now, "%Y-%m-%d %H:%M:%S")
+print(formatted)  // 2026-03-17 12:00:00</code></pre>
+                    <p><strong>Форматы:</strong></p>
+                    <ul>
+                        <li><code>%Y</code> — год (4 цифры)</li>
+                        <li><code>%m</code> — месяц (01-12)</li>
+                        <li><code>%d</code> — день (01-31)</li>
+                        <li><code>%H</code> — часы (00-23)</li>
+                        <li><code>%M</code> — минуты (00-59)</li>
+                        <li><code>%S</code> — секунды (00-59)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Regex Module -->
+            <section id="regex" class="api-section">
+                <h2>Regex</h2>
+                <p>Регулярные выражения для поиска и замены текста.</p>
+
+                <div class="api-function">
+                    <h4>regex.compile(pattern)</h4>
+                    <p>Компилирует регулярное выражение.</p>
+                    <pre><code class="language-taurine">import "std/regex.tau" as regex
+
+let pattern = regex.compile("\\d+")
+let match = pattern:find("abc123")
+print(match.text)  // "123"</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>pattern:match(str)</h4>
+                    <p>Проверяет, соответствует ли строка шаблону.</p>
+                    <pre><code class="language-taurine">let pattern = regex.compile("\\d+")
+print(pattern:match("abc123"))  // true
+print(pattern:match("abc"))     // false</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>pattern:find(str)</h4>
+                    <p>Находит первое совпадение в строке.</p>
+                    <pre><code class="language-taurine">let pattern = regex.compile("\\d+")
+let match = pattern:find("abc123def")
+print(match.text)   // "123"
+print(match.start)  // 3
+print(match.end)    // 6</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>pattern:findAll(str)</h4>
+                    <p>Находит все совпадения в строке.</p>
+                    <pre><code class="language-taurine">let pattern = regex.compile("\\d+")
+let matches = pattern:findAll("a1b2c3")
+for match in matches {
+    print(match.text)
+}</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>pattern:replace(str, replacement)</h4>
+                    <p>Заменяет совпадения в строке.</p>
+                    <pre><code class="language-taurine">let pattern = regex.compile("\\d+")
+let result = pattern:replace("abc123", "X")
+print(result)  // abcX</code></pre>
+                </div>
+            </section>
+
+            <!-- Array Module -->
+            <section id="array" class="api-section">
+                <h2>Array</h2>
+                <p>Утилиты для работы с массивами.</p>
+
+                <div class="api-function">
+                    <h4>array.len(arr)</h4>
+                    <p>Возвращает длину массива.</p>
+                    <pre><code class="language-taurine">import "std/array.tau" as array
+
+let arr = [1, 2, 3]
+print(array.len(arr))  // 3</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.push(arr, value)</h4>
+                    <p>Добавляет элемент в конец массива.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.pop(arr)</h4>
+                    <p>Удаляет и возвращает последний элемент массива.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.map(arr, fn)</h4>
+                    <p>Применяет функцию к каждому элементу массива.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3]
+let doubled = array.map(arr, x => x * 2)
+print(doubled)  // [2, 4, 6]</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.filter(arr, fn)</h4>
+                    <p>Фильтрует массив по условию.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3, 4, 5]
+let evens = array.filter(arr, x => x % 2 == 0)
+print(evens)  // [2, 4]</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.reduce(arr, fn, initial)</h4>
+                    <p>Сворачивает массив к одному значению.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3, 4]
+let sum = array.reduce(arr, (a, b) => a + b, 0)
+print(sum)  // 10</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.find(arr, fn)</h4>
+                    <p>Находит первый элемент, удовлетворяющий условию.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3, 4, 5]
+let found = array.find(arr, x => x > 3)
+print(found)  // 4</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.includes(arr, value)</h4>
+                    <p>Проверяет, содержит ли массив значение.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3]
+print(array.includes(arr, 2))  // true
+print(array.includes(arr, 5))  // false</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.indexOf(arr, value)</h4>
+                    <p>Возвращает индекс значения в массиве.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3, 4]
+print(array.indexOf(arr, 3))  // 2</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.join(arr, delimiter)</h4>
+                    <p>Объединяет элементы массива в строку.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3]
+let joined = array.join(arr, ", ")
+print(joined)  // "1, 2, 3"</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.slice(arr, start, length)</h4>
+                    <p>Возвращает часть массива.</p>
+                    <pre><code class="language-taurine">let arr = [1, 2, 3, 4, 5]
+let sliced = array.slice(arr, 1, 3)
+print(sliced)  // [2, 3, 4]</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.reverse(arr)</h4>
+                    <p>Разворачивает массив в обратном порядке.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.concat(arr1, arr2)</h4>
+                    <p>Объединяет два массива.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>array.clear(arr)</h4>
+                    <p>Очищает массив.</p>
+                </div>
+            </section>
+
+            <!-- String Module -->
+            <section id="string" class="api-section">
+                <h2>String</h2>
+                <p>Утилиты для работы со строками.</p>
+
+                <div class="api-function">
+                    <h4>string.len(str)</h4>
+                    <p>Возвращает длину строки.</p>
+                    <pre><code class="language-taurine">import "std/string.tau" as string
+
+print(string.len("hello"))  // 5</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>string.upper(str)</h4>
+                    <p>Преобразует строку к верхнему регистру.</p>
+                    <pre><code class="language-taurine">print(string.upper("hello"))  // "HELLO"</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>string.lower(str)</h4>
+                    <p>Преобразует строку к нижнему регистру.</p>
+                    <pre><code class="language-taurine">print(string.lower("HELLO"))  // "hello"</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>string.sub(str, start, length)</h4>
+                    <p>Возвращает подстроку.</p>
+                    <pre><code class="language-taurine">print(string.sub("hello", 1, 3))  // "ell"</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>string.split(str, delimiter)</h4>
+                    <p>Разделяет строку на массив по разделителю.</p>
+                    <pre><code class="language-taurine">let parts = string.split("a,b,c", ",")
+print(parts)  // ["a", "b", "c"]</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>string.trim(str)</h4>
+                    <p>Удаляет пробелы по краям строки.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>string.replace(str, pattern, replacement)</h4>
+                    <p>Заменяет подстроку в строке.</p>
+                </div>
+            </section>
+
+            <!-- IO Module -->
+            <section id="io" class="api-section">
+                <h2>IO</h2>
+                <p>Файловый ввод/вывод.</p>
+
+                <div class="api-function">
+                    <h4>io.read(path)</h4>
+                    <p>Читает содержимое файла.</p>
+                    <pre><code class="language-taurine">import "std/io.tau" as io
+
+let content = io.read("file.txt")
+print(content)</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>io.write(path, content)</h4>
+                    <p>Записывает содержимое в файл.</p>
+                    <pre><code class="language-taurine">io.write("output.txt", "Hello, World!")</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>io.append(path, content)</h4>
+                    <p>Добавляет содержимое в конец файла.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>io.exists(path)</h4>
+                    <p>Проверяет существование файла.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>io.remove(path)</h4>
+                    <p>Удаляет файл.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>io.copy(src, dest)</h4>
+                    <p>Копирует файл.</p>
+                </div>
+            </section>
+
+            <!-- Math Module -->
+            <section id="math" class="api-section">
+                <h2>Math</h2>
+                <p>Математические функции.</p>
+
+                <div class="api-function">
+                    <h4>math.abs(x)</h4>
+                    <p>Возвращает абсолютное значение.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>math.sqrt(x)</h4>
+                    <p>Возвращает квадратный корень.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>math.pow(x, y)</h4>
+                    <p>Возводит x в степень y.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>math.sin(x), math.cos(x), math.tan(x)</h4>
+                    <p>Тригонометрические функции.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>math.log(x)</h4>
+                    <p>Натуральный логарифм.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>math.random(min, max)</h4>
+                    <p>Генерирует случайное число.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>math.floor(x), math.ceil(x), math.round(x)</h4>
+                    <p>Округление чисел.</p>
+                </div>
+            </section>
+
+            <!-- OS Module -->
+            <section id="os" class="api-section">
+                <h2>OS</h2>
+                <p>Функции операционной системы.</p>
+
+                <div class="api-function">
+                    <h4>os.getenv(name)</h4>
+                    <p>Получает переменную окружения.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>os.setenv(name, value)</h4>
+                    <p>Устанавливает переменную окружения.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>os.exec(command)</h4>
+                    <p>Выполняет системную команду.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>os.cwd()</h4>
+                    <p>Возвращает текущую рабочую директорию.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>os.platform()</h4>
+                    <p>Возвращает информацию о платформе.</p>
+                </div>
+            </section>
+
+            <!-- FS Module -->
+            <section id="fs" class="api-section">
+                <h2>File System</h2>
+                <p>Расширенные операции с файловой системой.</p>
+
+                <div class="api-function">
+                    <h4>fs.listDir(path)</h4>
+                    <p>Возвращает список файлов в директории.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>fs.mkdir(path)</h4>
+                    <p>Создаёт директорию.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>fs.rmdir(path)</h4>
+                    <p>Удаляет директорию.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>fs.stat(path)</h4>
+                    <p>Возвращает информацию о файле.</p>
+                </div>
+            </section>
+
+            <!-- Process Module -->
+            <section id="process" class="api-section">
+                <h2>Process</h2>
+                <p>Управление процессами.</p>
+
+                <div class="api-function">
+                    <h4>process.spawn(command, args)</h4>
+                    <p>Запускает новый процесс.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>process.exit(code)</h4>
+                    <p>Завершает процесс с кодом выхода.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>process.pid()</h4>
+                    <p>Возвращает ID текущего процесса.</p>
+                </div>
+            </section>
+
+            <!-- Table Module -->
+            <section id="table" class="api-section">
+                <h2>Table</h2>
+                <p>Утилиты для работы с таблицами.</p>
+
+                <div class="api-function">
+                    <h4>table.keys(obj)</h4>
+                    <p>Возвращает массив ключей таблицы.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>table.values(obj)</h4>
+                    <p>Возвращает массив значений таблицы.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>table.pairs(obj)</h4>
+                    <p>Возвращает массив пар ключ-значение.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>table.clone(obj)</h4>
+                    <p>Создаёт глубокую копию таблицы.</p>
+                </div>
+            </section>
+
+            <!-- Test Module -->
+            <section id="test" class="api-section">
+                <h2>Test</h2>
+                <p>Фреймворк для тестирования.</p>
+
+                <div class="api-function">
+                    <h4>test.describe(name, fn)</h4>
+                    <p>Описывает группу тестов.</p>
+                    <pre><code class="language-taurine">import "std/test.tau" as test
+
+test.describe("Математика", function() {
+    test.it("должно складывать", function() {
+        assert(1 + 2 == 3)
+    })
+})
+
+test.run_tests()</code></pre>
+                </div>
+
+                <div class="api-function">
+                    <h4>test.it(name, fn)</h4>
+                    <p>Описывает отдельный тест.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>assert(condition, message?)</h4>
+                    <p>Проверяет условие.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>assert_eq(a, b, message?)</h4>
+                    <p>Проверяет равенство двух значений.</p>
+                </div>
+
+                <div class="api-function">
+                    <h4>test.run_tests()</h4>
+                    <p>Запускает все определённые тесты.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon" style="width: 40px; height: 40px;">
+                    <div class="footer-brand-text">
+                        <span class="brand-name">TAURINE</span>
+                        <p>Быстрый. Мощный. Неудержимый.</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Ресурсы</h4>
+                    <a href="../index.html">Главная</a>
+                    <a href="../docs/index.html">Документация</a>
+                    <a href="../examples/index.html">Примеры</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a>
+                    <a href="https://github.com/ffsonDev/taurine/discussions" target="_blank">Discussions</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Разработка</h4>
+                    <a href="https://github.com/ffsonDev/taurine/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/ffsonDev/taurine/pulls" target="_blank">Pull Requests</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Разработан <strong>Taurine Creations</strong> • <strong>ffsonDev</strong></p>
+                <p>MIT License © 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>

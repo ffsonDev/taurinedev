@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Примеры кода Taurine</title>
+    <meta name="description" content="Примеры кода на языке Taurine: от Hello World до сложных операций с JSON, криптографией и массивами">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon">
+                <span>TAURINE</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../index.html">Главная</a></li>
+                <li><a href="../docs/index.html">Документация</a></li>
+                <li><a href="../packages/index.html">Библиотеки</a></li>
+                <li><a href="../examples/index.html">Примеры</a></li>
+                <li><a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Примеры кода</h1>
+            <p>Практические примеры использования языка Taurine</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="container" style="padding: 3rem 2rem;">
+        <div class="example-grid">
+            <!-- Hello World -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>👋 Hello World</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/hello.tau
+print("Привет, Taurine!")
+print(f"2 + 2 = {2 + 2}")
+
+// Переменные
+let name = "Taurine"
+const VERSION = "1.0"
+
+// Функция
+function greet(name, greeting = "Привет") {
+    return f"{greeting}, {name}!"
+}
+
+print(greet(name))</code></pre>
+                </div>
+            </div>
+
+            <!-- Fibonacci -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>🔢 Числа Фибоначчи</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/fibonacci.tau
+function fib(n) {
+    if n <= 1 { return n }
+    return fib(n - 1) + fib(n - 2)
+}
+
+// Вывод первых 10 чисел
+for i in 1..11 {
+    print(f"fib({i}) = {fib(i)}")
+}
+
+// Итеративная версия
+function fibIter(n) {
+    if n <= 1 { return n }
+    
+    let a = 0, b = 1
+    for i in 2..n + 1 {
+        let temp = a + b
+        a = b
+        b = temp
+    }
+    return b
+}
+
+print(f"fibIter(10) = {fibIter(10)}")</code></pre>
+                </div>
+            </div>
+
+            <!-- Arrays -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>📦 Операции с массивами</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/arrays.tau
+import "std/array.tau" as array
+
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+print(f"Original: {arr}")
+
+// Map - удвоение
+let doubled = array.map(arr, x => x * 2)
+print(f"Doubled:  {doubled}")
+
+// Filter - чётные
+let evens = array.filter(arr, x => x % 2 == 0)
+print(f"Evens:    {evens}")
+
+// Find - первый > 5
+let found = array.find(arr, x => x > 5)
+print(f"First > 5: {found}")
+
+// Includes
+print(f"Includes 5: {array.includes(arr, 5)}")
+
+// Reduce - сумма
+let sum = array.reduce(arr, (a, b) => a + b, 0)
+print(f"Sum: {sum}")
+
+// Join
+let joined = array.join(arr, ", ")
+print(f"Joined: {joined}")</code></pre>
+                </div>
+            </div>
+
+            <!-- JSON -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>📄 Работа с JSON</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/json_example.tau
+import "std/json.tau" as json
+
+// Парсинг JSON
+let jsonStr = '{
+    "name": "Taurine",
+    "version": "1.0",
+    "features": ["fast", "simple", "modern"]
+}'
+
+let obj = json.parse(jsonStr)
+
+print("Parsed JSON:")
+print(f"  name: {obj.name}")
+print(f"  version: {obj.version}")
+print(f"  features: {obj.features}")
+
+// Сериализация
+let data = { name: "test", value: 42 }
+let encoded = json.stringify(data)
+print(f"\nStringified: {encoded}")
+
+// Вложенные объекты
+let complex = {
+    user: { name: "John", age: 30 },
+    posts: [1, 2, 3]
+}
+print(json.stringify(complex))</code></pre>
+                </div>
+            </div>
+
+            <!-- Crypto -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>🔐 Криптография</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/crypto_example.tau
+import "std/crypto.tau" as crypto
+
+// MD5 хеш
+let md5Hash = crypto.md5("hello")
+print(f"MD5: {md5Hash}")
+
+// SHA256 хеш
+let sha256Hash = crypto.sha256("hello")
+print(f"SHA256: {sha256Hash}")
+
+// Base64 кодирование
+let encoded = crypto.base64Encode("Hello, World!")
+print(f"Base64 encoded: {encoded}")
+
+// Base64 декодирование
+let decoded = crypto.base64Decode(encoded)
+print(f"Base64 decoded: {decoded}")
+
+// Генерация UUID
+let uuid = crypto.uuid()
+print(f"UUID: {uuid}")
+
+// Случайные байты
+let randomBytes = crypto.randomBytes(16)
+print(f"Random bytes: {randomBytes}")</code></pre>
+                </div>
+            </div>
+
+            <!-- Regex -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>🔍 Регулярные выражения</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/regex_example.tau
+import "std/regex.tau" as regex
+
+// Компиляция паттерна
+let pattern = regex.compile("\\d+")
+
+// Проверка соответствия
+print(pattern:match("abc123"))  // true
+print(pattern:match("abc"))     // false
+
+// Поиск
+let match = pattern:find("abc123def")
+if match != nil {
+    print(f"Found: {match.text}")
+    print(f"Start: {match.start}")
+    print(f"End: {match.end}")
+}
+
+// Все совпадения
+let allMatches = pattern:findAll("a1b2c3d4")
+for m in allMatches {
+    print(m.text)
+}
+
+// Замена
+let result = pattern:replace("abc123", "X")
+print(result)  // abcX</code></pre>
+                </div>
+            </div>
+
+            <!-- Date/Time -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>📅 Дата и время</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/date_example.tau
+import "std/date.tau" as date
+
+// Текущее время
+let now = date.now()
+print(f"Timestamp: {now}")
+
+// Форматирование
+let formatted = date.format(now, "%Y-%m-%d %H:%M:%S")
+print(f"Formatted: {formatted}")
+
+// Разные форматы
+print(date.format(now, "%d/%m/%Y"))      // 17/03/2026
+print(date.format(now, "%H:%M"))         // 14:30
+print(date.format(now, "%Y-%m-%d"))      // 2026-03-17
+print(date.format(now, "%A, %B %d, %Y")) // Tuesday, March 17, 2026</code></pre>
+                </div>
+            </div>
+
+            <!-- Test Framework -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>✅ Тестирование</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// examples/test_example.tau
+import "std/test.tau" as test
+
+// Описание группы тестов
+test.describe("Математика", function() {
+    test.it("должно складывать", function() {
+        assert(1 + 2 == 3)
+        assert_eq(5 * 5, 25)
+    })
+    
+    test.it("должно умножать", function() {
+        assert(2 * 3 == 6)
+        assert(10 * 10 == 100)
+    })
+})
+
+test.describe("Строки", function() {
+    test.it("должно конкатенировать", function() {
+        assert("Hello" + " " + "World" == "Hello World")
+    })
+})
+
+// Запуск тестов
+test.run_tests()</code></pre>
+                </div>
+            </div>
+
+            <!-- Functions & Features -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>⚙️ Функции и возможности</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// Демонстрация возможностей языка
+
+// Multi-return функции
+function divmod(a, b) {
+    return a / b, a % b
+}
+
+let {q, r} = divmod(10, 3)
+print(f"Quotient: {q}, Remainder: {r}")
+
+// Параметры по умолчанию
+function greet(name, greeting = "Привет") {
+    return f"{greeting}, {name}!"
+}
+
+print(greet("Мир"))
+print(greet("Мир", "Hello"))
+
+// Nil-safe операторы
+let obj = { name: "test" }
+print(obj?.name)     // "test"
+print(obj?.missing)  // nil (без ошибки)
+
+// Деструктуризация
+let person = { name: "Иван", age: 30 }
+let {name, age} = person
+print(f"{name}, {age}")
+
+// Функциональные литералы
+let add = function(a, b) {
+    return a + b
+}
+print(add(5, 3))</code></pre>
+                </div>
+            </div>
+
+            <!-- Error Handling -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>⚠️ Обработка ошибок</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// Обработка ошибок
+
+// Try-Catch
+function riskyOperation(shouldFail) {
+    if shouldFail {
+        throw "Что-то пошло не так!"
+    }
+    return "Успех!"
+}
+
+try {
+    let result = riskyOperation(true)
+    print(result)
+} catch (err) {
+    print(f"Ошибка: {err}")
+}
+
+// Try-Catch с finally
+try {
+    print("Выполнение...")
+} catch (err) {
+    print(f"Поймана ошибка: {err}")
+} finally {
+    print("Очистка ресурсов...")
+}
+
+// Assertions
+import "std/test.tau" as test
+
+let x = 10
+assert(x > 0, "x должно быть положительным")
+assert_eq(x, 10, "x должно равняться 10")</code></pre>
+                </div>
+            </div>
+
+            <!-- Control Flow -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>🔀 Управляющие конструкции</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// If-Else
+let x = 15
+
+if x > 10 {
+    print("большое")
+} else if x > 5 {
+    print("среднее")
+} else {
+    print("маленькое")
+}
+
+// While цикл
+let i = 0
+while i < 5 {
+    print(f"i = {i}")
+    i = i + 1
+}
+
+// For-In с диапазоном
+for i in 1..6 {
+    if i == 3 { continue }
+    if i == 5 { break }
+    print(i)
+}
+
+// For-In с массивом
+for item in ["a", "b", "c"] {
+    print(item)
+}
+
+// For-In со строкой
+for ch in "hello" {
+    print(ch)
+}</code></pre>
+                </div>
+            </div>
+
+            <!-- Table Methods -->
+            <div class="example-card">
+                <div class="example-card-header">
+                    <h3>📋 Методы таблиц</h3>
+                </div>
+                <div class="example-card-body">
+                    <pre><code class="language-taurine">// Методы таблиц
+
+let counter = { count: 0 }
+
+function increment(self, amount) {
+    self.count = self.count + amount
+}
+
+function decrement(self, amount) {
+    self.count = self.count - amount
+}
+
+function reset(self) {
+    self.count = 0
+}
+
+// Использование
+increment(counter, 5)
+print(counter.count)  // 5
+
+increment(counter, 3)
+print(counter.count)  // 8
+
+decrement(counter, 2)
+print(counter.count)  // 6
+
+reset(counter)
+print(counter.count)  // 0
+
+// Таблица с функциями
+let calculator = {
+    value: 0,
+    add: function(self, x) {
+        self.value = self.value + x
+    },
+    get: function(self) {
+        return self.value
+    }
+}
+
+calculator:add(10)
+print(calculator:get())  // 10</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="../assets/images/logo.svg" alt="Taurine Logo" class="logo-icon" style="width: 40px; height: 40px;">
+                    <div class="footer-brand-text">
+                        <span class="brand-name">TAURINE</span>
+                        <p>Быстрый. Мощный. Неудержимый.</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Ресурсы</h4>
+                    <a href="../index.html">Главная</a>
+                    <a href="../docs/index.html">Документация</a>
+                    <a href="../packages/index.html">Библиотеки</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a>
+                    <a href="https://github.com/ffsonDev/taurine/discussions" target="_blank">Discussions</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Разработка</h4>
+                    <a href="https://github.com/ffsonDev/taurine/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/ffsonDev/taurine/pulls" target="_blank">Pull Requests</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Разработан <strong>Taurine Creations</strong> • <strong>ffsonDev</strong></p>
+                <p>MIT License © 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../assets/js/main.js"></script>
+</body>
+</html>
