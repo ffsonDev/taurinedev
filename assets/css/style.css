@@ -946,6 +946,125 @@ tr:hover {
     border-color: var(--text-muted);
 }
 
+/* Changelog Styles */
+.changelog-version {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.version-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.version-header h2 {
+    margin: 0;
+    font-size: 1.75rem;
+}
+
+.version-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.version-badge {
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.version-content h3 {
+    font-size: 1.125rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.version-content h3:first-child {
+    margin-top: 0;
+}
+
+.version-content ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.version-content li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.version-content li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.version-content li code {
+    background: var(--bg-tertiary);
+    padding: 0.125rem 0.375rem;
+    border-radius: 4px;
+    font-size: 0.85em;
+}
+
+.older-versions-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+}
+
+.older-versions-list li {
+    padding-left: 0 !important;
+    margin-bottom: 1rem !important;
+}
+
+.older-versions-list li::before {
+    display: none !important;
+}
+
+.older-versions-list strong {
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .changelog-version {
+        padding: 1.5rem;
+    }
+
+    .version-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .version-content h3 {
+        font-size: 1rem;
+    }
+
+    .version-content li {
+        font-size: 0.9rem;
+    }
+}
+
 @media (max-width: 768px) {
     .mobile-sidebar-toggle {
         display: block;

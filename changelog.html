@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Журнал изменений — Taurine</title>
+    <meta name="description" content="История изменений и обновлений языка программирования Taurine">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/images/logo.svg" alt="Taurine Logo" class="logo-icon">
+                <span>TAURINE</span>
+            </a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="docs/index.html">Документация</a></li>
+                <li><a href="packages/index.html">Библиотеки</a></li>
+                <li><a href="examples/index.html">Примеры</a></li>
+                <li><a href="changelog.html">Изменения</a></li>
+                <li><a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Главная</a>
+                <span class="separator">/</span>
+                <span>Журнал изменений</span>
+            </div>
+            <h1>Журнал изменений</h1>
+            <p>История обновлений и улучшений языка Taurine</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <div class="container" style="padding: 3rem 2rem; max-width: 900px;">
+        
+        <!-- Version 1.0.5 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v1.0.5</h2>
+                <span class="version-date">17 марта 2026</span>
+            </div>
+            <div class="version-content">
+                <h3>🎉 Нововведения</h3>
+                <ul>
+                    <li>Улучшена производительность интерпретатора на 15%</li>
+                    <li>Добавлена поддержка новых криптографических функций</li>
+                    <li>Улучшена обработка ошибок в JSON парсере</li>
+                </ul>
+
+                <h3>🐛 Исправления</h3>
+                <ul>
+                    <li>Исправлена ошибка с утечкой памяти при работе с большими массивами</li>
+                    <li>Исправлен баг с некорректной обработкой nil-safe операторов</li>
+                    <li>Устранена проблема с кодировкой UTF-8 в строковых функциях</li>
+                </ul>
+
+                <h3>📚 Документация</h3>
+                <ul>
+                    <li>Обновлены примеры кода в документации</li>
+                    <li>Добавлены новые руководства по встраиванию</li>
+                    <li>Улучшена навигация по сайту документации</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 1.0.4 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v1.0.4</h2>
+                <span class="version-date">10 марта 2026</span>
+            </div>
+            <div class="version-content">
+                <h3>🐛 Исправления</h3>
+                <ul>
+                    <li>Исправлена ошибка компиляции на Windows MSVC</li>
+                    <li>Улучшена стабильность HTTP клиента</li>
+                    <li>Исправлен баг с деструктуризацией вложенных таблиц</li>
+                </ul>
+
+                <h3>⚡ Производительность</h3>
+                <ul>
+                    <li>Оптимизирована работа сборщика мусора</li>
+                    <li>Ускорена загрузка модулей на 20%</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 1.0.3 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v1.0.3</h2>
+                <span class="version-date">1 марта 2026</span>
+            </div>
+            <div class="version-content">
+                <h3>🎉 Нововведения</h3>
+                <ul>
+                    <li>Добавлена функция <code>array.sort()</code> для сортировки массивов</li>
+                    <li>Новые математические функции в <code>std/math.tau</code></li>
+                    <li>Поддержка шестнадцатеричных чисел (0xFF)</li>
+                </ul>
+
+                <h3>🐛 Исправления</h3>
+                <ul>
+                    <li>Исправлена ошибка с рекурсией в функциях</li>
+                    <li>Улучшена обработка больших чисел</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 1.0.2 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v1.0.2</h2>
+                <span class="version-date">15 февраля 2026</span>
+            </div>
+            <div class="version-content">
+                <h3>🐛 Исправления</h3>
+                <ul>
+                    <li>Критическое исправление безопасности в JSON парсере</li>
+                    <li>Исправлена уязвимость в HTTP модуле</li>
+                    <li>Улучшена валидация входных данных</li>
+                </ul>
+
+                <h3>🔒 Безопасность</h3>
+                <ul>
+                    <li>Добавлена проверка переполнения буфера</li>
+                    <li>Улучшена песочница для недоверенного кода</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 1.0.1 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v1.0.1</h2>
+                <span class="version-date">1 февраля 2026</span>
+            </div>
+            <div class="version-content">
+                <h3>🐛 Исправления</h3>
+                <ul>
+                    <li>Исправлена ошибка компиляции на Linux</li>
+                    <li>Улучшена совместимость с macOS</li>
+                    <li>Исправлен баг с отображением Unicode символов</li>
+                </ul>
+
+                <h3>📦 Сборка</h3>
+                <ul>
+                    <li>Обновлены зависимости Rust</li>
+                    <li>Улучшен процесс установки</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 1.0.0 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v1.0.0</h2>
+                <span class="version-date">16 января 2026</span>
+                <span class="version-badge">Стабильный релиз</span>
+            </div>
+            <div class="version-content">
+                <h3>🎉 Стабильный релиз!</h3>
+                <p>Первый стабильный релиз языка программирования Taurine.</p>
+
+                <h3>✨ Добавлено</h3>
+                <ul>
+                    <li><strong>let/const</strong> объявления переменных</li>
+                    <li><strong>f-строки</strong> для интерполяции строк</li>
+                    <li><strong>Multi-return</strong> функции с деструктуризацией</li>
+                    <li><strong>break/continue</strong> в циклах</li>
+                    <li><strong>Nil-safe операторы</strong> (<code>?.</code>)</li>
+                    <li><strong>JSON-стиль таблиц</strong> (<code>{key: val}</code>)</li>
+                    <li><strong>Диапазоны</strong> (<code>1..10</code>)</li>
+                    <li><strong>Присваивание по индексу массива</strong> (<code>arr[i] = value</code>)</li>
+                    <li><strong>Параметры по умолчанию</strong> в функциях</li>
+                    <li><strong>Функциональные литералы</strong> (анонимные функции)</li>
+                    <li><strong>Rust API</strong> — Встраивание в Rust приложения</li>
+                    <li><strong>C API</strong> — Использование из C/C++ программ</li>
+                </ul>
+
+                <h3>📚 Стандартная библиотека</h3>
+                <ul>
+                    <li><code>std/json.tau</code> — Парсинг/сериализация JSON</li>
+                    <li><code>std/http.tau</code> — HTTP клиент</li>
+                    <li><code>std/crypto.tau</code> — Криптографические функции</li>
+                    <li><code>std/date.tau</code> — Дата/время</li>
+                    <li><code>std/regex.tau</code> — Регулярные выражения</li>
+                    <li><code>std/array.tau</code> — Утилиты для массивов</li>
+                    <li><code>std/string.tau</code> — Строковые утилиты</li>
+                    <li><code>std/io.tau</code> — Файловый ввод/вывод</li>
+                    <li><code>std/math.tau</code> — Математические функции</li>
+                    <li><code>std/os.tau</code> — Функции ОС</li>
+                </ul>
+
+                <h3>⚡ Производительность</h3>
+                <ul>
+                    <li>Замена <code>Arc&lt;Mutex&lt;&gt;&gt;</code> на <code>Rc&lt;RefCell&lt;&gt;&gt;</code> для ускорения в 2-3 раза</li>
+                    <li>Constant folding оптимизатор</li>
+                    <li>Dead code elimination</li>
+                </ul>
+
+                <h3>🔄 Изменено</h3>
+                <ul>
+                    <li>Удалён менеджер пакетов (фокус на ядре языка)</li>
+                    <li>Упрощён CLI интерфейс</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 0.12.0 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v0.12.0</h2>
+                <span class="version-date">10 декабря 2025</span>
+            </div>
+            <div class="version-content">
+                <h3>🎉 Добавлено</h3>
+                <ul>
+                    <li>Тестовый фреймворк (<code>taurine test</code>)</li>
+                    <li>Benchmark suite (<code>taurine bench</code>)</li>
+                    <li>Функции <code>assert()</code> и <code>assert_eq()</code></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 0.11.0 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v0.11.0</h2>
+                <span class="version-date">15 сентября 2025</span>
+            </div>
+            <div class="version-content">
+                <h3>🎉 Добавлено</h3>
+                <ul>
+                    <li>Ключевые слова <code>let</code> и <code>const</code> (алиасы для <code>loc</code>)</li>
+                    <li>JSON-стиль синтаксиса таблиц (<code>{key: val}</code>)</li>
+                    <li>Защита const (нельзя переназначить)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Version 0.10.0 -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>v0.10.0</h2>
+                <span class="version-date">20 июня 2025</span>
+            </div>
+            <div class="version-content">
+                <h3>🎉 Добавлено</h3>
+                <ul>
+                    <li>Операторы <code>break</code> и <code>continue</code></li>
+                    <li>f-строки (<code>f"Привет, {name}!"</code>)</li>
+                    <li>Multi-return значения</li>
+                    <li>Деструктуризация присваиваний</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Older Versions -->
+        <section class="changelog-version">
+            <div class="version-header">
+                <h2>Более ранние версии</h2>
+            </div>
+            <div class="version-content">
+                <ul class="older-versions-list">
+                    <li>
+                        <strong>v0.9.0</strong> (10 марта 2025) — Оптимизация производительности, замена Arc&lt;Mutex&gt; на Rc&lt;RefCell&gt;
+                    </li>
+                    <li>
+                        <strong>v0.8.0</strong> (5 декабря 2024) — Присваивание по индексу, JSON, HTTP, диапазоны, nil-safe оператор, regex, дата/время, криптография
+                    </li>
+                    <li>
+                        <strong>v0.7.0</strong> (15 сентября 2024) — Синтаксис вызова методов, параметры по умолчанию, функциональные литералы
+                    </li>
+                    <li>
+                        <strong>v0.6.0</strong> (1 июня 2024) — Начальный релиз, базовые функции языка
+                    </li>
+                    <li>
+                        <strong>v0.5.0</strong> (15 марта 2024) — Первая публичная бета, реализация интерпретатора
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.svg" alt="Taurine Logo" class="logo-icon" style="width: 40px; height: 40px;">
+                    <div class="footer-brand-text">
+                        <span class="brand-name">TAURINE</span>
+                        <p>Быстрый. Мощный. Неудержимый.</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Ресурсы</h4>
+                    <a href="docs/index.html">Документация</a>
+                    <a href="packages/index.html">Библиотеки</a>
+                    <a href="examples/index.html">Примеры</a>
+                    <a href="changelog.html">Изменения</a>
+                    <a href="#install">Установка</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Сообщество</h4>
+                    <a href="https://github.com/ffsonDev/taurine" target="_blank">GitHub</a>
+                    <a href="https://github.com/ffsonDev/taurine/discussions" target="_blank">Discussions</a>
+                    <a href="https://github.com/ffsonDev/taurine/releases" target="_blank">Releases</a>
+                </div>
+
+                <div class="footer-links">
+                    <h4>Разработка</h4>
+                    <a href="https://github.com/ffsonDev/taurine/issues" target="_blank">Issues</a>
+                    <a href="https://github.com/ffsonDev/taurine/pulls" target="_blank">Pull Requests</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>Разработан <strong>Taurine Creations</strong> • <strong>ffsonDev</strong></p>
+                <p>MIT License © 2024-2026</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
