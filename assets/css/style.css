@@ -356,6 +356,10 @@ a:hover {
 .feature-icon {
     font-size: 2.5rem;
     margin-bottom: 1rem;
+    line-height: 1;
+    font-style: normal;
+    /* Ensure emoji are displayed correctly */
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
 }
 
 .feature-card h3 {
@@ -1298,6 +1302,22 @@ tr:hover {
         font-size: 0.75rem;
     }
 
+    .code-window {
+        font-size: 0.8rem;
+    }
+
+    .code-window pre {
+        padding: 1rem;
+        font-size: 0.75rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .code-window code {
+        font-size: 0.7rem;
+        min-width: 100%;
+    }
+
     /* Features */
     .features {
         padding: 4rem 0;
@@ -1326,12 +1346,26 @@ tr:hover {
         -webkit-overflow-scrolling: touch;
         gap: 0.25rem;
         padding-bottom: 0.5rem;
+        scrollbar-width: none; /* Firefox */
+    }
+
+    .tabs::-webkit-scrollbar {
+        display: none; /* Chrome, Safari */
     }
 
     .tab-btn {
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1.25rem;
         font-size: 0.875rem;
         white-space: nowrap;
+        border-bottom-width: 3px;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .tab-btn .tab-icon {
+        font-size: 1.25rem;
     }
 
     /* Installation */
